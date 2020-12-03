@@ -27,8 +27,9 @@ public class myDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (DATE String, CC String, PLAYER_NAME String, HOLE String, PAR Integer, SCORE Integer" +
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (HOLE String, PAR Integer, SCORE Integer" +
                 ")");
+        //DATE String, CC String, PLAYER_NAME String,
     }
 
     @Override
@@ -37,14 +38,14 @@ public class myDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean saveToDB(String DATE, String CC, String PLAYER_NAME, String HOLE, int PAR, int SCORE) {
-
+    public boolean saveToDB(String HOLE, int PAR, int SCORE) {
+//String DATE, String CC, String PLAYER_NAME,
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(COL_DATE, DATE);
+        /*contentValues.put(COL_DATE, DATE);
         contentValues.put(COL_CC, CC);
-        contentValues.put(COL_PLAYER, PLAYER_NAME);
+        contentValues.put(COL_PLAYER, PLAYER_NAME);*/
         contentValues.put(COL_HOLE, HOLE);
         contentValues.put(COL_PAR, PAR);
         contentValues.put(COL_SCORE, SCORE);
@@ -89,9 +90,9 @@ public class myDBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Integer deleteData(String PLAYER_NAME) {
+    public Integer deleteData(String HOLE) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "PLAYER_NAME = ?", new String[] {PLAYER_NAME});
+        return db.delete(TABLE_NAME, "HOLE = ?", new String[] {HOLE});
     }
 
     public void deleteAllData() {
