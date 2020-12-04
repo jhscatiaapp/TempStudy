@@ -57,7 +57,21 @@ public class MainActivity extends AppCompatActivity {
             score = Integer.parseInt(inputScore.getText().toString());
 
             myDBHelper.saveToDB(holeNo, parNo, score);
+
+            arrHole.add(holeNo);
+            arrPar.add(parNo);
+            arrScore.add(score);
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+
+            recyclerView.setLayoutManager(linearLayoutManager);
+            adapter = new myAdapter(this, getAllItems());
+            recyclerView.setAdapter(adapter);
+
         });
+
+
 
     }
 
@@ -69,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
         myDB = myDBHelper.getWritableDatabase();
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new myAdapter(this, getAllItems());
-        recyclerView.setAdapter(adapter);
     }
 
     private Cursor getAllItems() {

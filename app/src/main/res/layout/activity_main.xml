@@ -120,14 +120,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/inputPar"
-            android:hint="HOLE"
+            android:hint="PAR"
             android:inputType="numberDecimal"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/inputScore"
-            android:hint="HOLE"
-            android:inputType="numberDecimal"/>
+            android:hint="SCORE"
+            android:inputType="number"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
