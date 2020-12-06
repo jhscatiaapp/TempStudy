@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 public class myDBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "score_test01.db";
+    public static final String DATABASE_NAME = "score_test02.db";
     public static final String TABLE_NAME = "Score_Table";
     public static final String COL_DATE = "DATE";
     public static final String COL_CC = "CC";

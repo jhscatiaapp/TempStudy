@@ -60,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
             parNo = Integer.parseInt(inputPar.getText().toString());
             score = Integer.parseInt(inputScore.getText().toString());
 
-            arrHole.add(i, holeNo);
+            //arrHole.add(i, holeNo);
             arrPar.add(i, parNo);
             arrScore.add(i, score);
 
+            myDBHelper.deleteAllData();
             PutArrayToDB();
             DBDisplay();
         });
@@ -106,10 +107,11 @@ public class MainActivity extends AppCompatActivity {
             allList.add(tempList);
         }
 
-        //adapter.notifyDataSetChanged();
+        myDBHelper.deleteAllData();
 
+        PutArrayToDB();
+        adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
-
     }
 
     public void PutArrayToDB() {
