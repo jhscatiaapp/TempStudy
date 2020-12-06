@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -26,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> arrHole = new ArrayList<>();
     private ArrayList<Integer> arrPar = new ArrayList<>();
     private ArrayList<Integer> arrScore = new ArrayList<>();
+    private ArrayList<listDataFormat> allList = new ArrayList<>();
     private myDBHelper myDBHelper = new myDBHelper(this);
     private EditText inputHole, inputPar, inputScore;
     private RecyclerView recyclerView;
-    private myAdapter adapter;
+    private ListView listView;
+    private myAdapter3 adapter;
     String holeNo;
     int parNo, score;
     Button btnok;
@@ -39,40 +42,78 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        VariablesSetter();
 
-        /*arrHole.add("1");
-        arrHole.add("2");
-        arrHole.add("3");
-        arrPar.add(3);
-        arrPar.add(4);
-        arrPar.add(5);
-        arrScore.add(0);
-        arrScore.add(-1);
-        arrScore.add(1);*/
+        VariablesSetter();
+        myDBHelper.deleteAllData();
+        InitializeArrayList();
+        PutArrayToDB();
+        DBDisplay();
 
         btnok.setOnClickListener(v -> {
+            int i = 0;
             holeNo = inputHole.getText().toString();
             parNo = Integer.parseInt(inputPar.getText().toString());
             score = Integer.parseInt(inputScore.getText().toString());
 
-            myDBHelper.saveToDB(holeNo, parNo, score);
+            arrHole.add(i, holeNo);
+            arrPar.add(i, parNo);
+            arrScore.add(i, score);
 
-            arrHole.add(holeNo);
-            arrPar.add(parNo);
-            arrScore.add(score);
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
-            recyclerView.setLayoutManager(linearLayoutManager);
-            adapter = new myAdapter(this, getAllItems());
-            recyclerView.setAdapter(adapter);
-
+            PutArrayToDB();
+            DBDisplay();
         });
 
 
 
+    }
+
+    /*private void storeDBtoArrayList() {
+        arrHole.clear();
+        arrPar.clear();
+        arrScore.clear();
+
+        Cursor cursor = myDBHelper.readAllData();
+
+        while (cursor.moveToNext()) {
+            arrHole.add(cursor.getString(0));
+            arrPar.add(cursor.getInt(1));
+            arrScore.add(cursor.getInt(2));
+        }
+    }*/
+
+    public void DBDisplay() {
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        //recyclerView.setLayoutManager(linearLayoutManager);
+        //recyclerView.setAdapter(adapter);
+        String hole;
+        int par, score;
+        for (int i = 0; i < 18; i++) {
+            hole = String.valueOf(arrHole.get(i));
+            par = arrPar.get(i);
+            score = arrScore.get(i);
+            listDataFormat tempList = new listDataFormat(hole, par, score);
+            allList.add(tempList);
+        }
+
+        listView.setAdapter(adapter);
+    }
+
+    public void PutArrayToDB() {
+        for(int i = 0; i < 18; i++) {
+            myDBHelper.saveToDB(String.valueOf(arrHole.get(i)), arrPar.get(i), arrScore.get(i));
+        }
+    }
+
+    public void InitializeArrayList() {
+        arrHole.clear();
+        arrPar.clear();
+        arrScore.clear();
+        for(int i = 0; i < 18; i++) {
+            arrHole.add(String.valueOf(i+1));
+            arrPar.add(4);
+            arrScore.add(0);
+        }
     }
 
     public void VariablesSetter() {
@@ -81,18 +122,14 @@ public class MainActivity extends AppCompatActivity {
         inputScore = findViewById(R.id.inputScore);
         btnok = findViewById(R.id.buttonOK);
         myDB = myDBHelper.getWritableDatabase();
-
-        recyclerView = findViewById(R.id.recyclerView);
+        //recyclerView = findViewById(R.id.recyclerView);
+        listView = findViewById(R.id.listView);
+        adapter = new myAdapter3(this, R.layout.layout_listview2, allList);
     }
 
     private Cursor getAllItems() {
         return myDB.query(TABLE_NAME, null, null, null,
                 null, null, null);
-    }
-
-    private void removeItem(long hole) {
-        myDB.delete(TABLE_NAME, COL_HOLE + "=" + hole, null);
-        adapter.swapCursor(getAllItems());
     }
 
 }
