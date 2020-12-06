@@ -28,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> arrPar = new ArrayList<>();
     private ArrayList<Integer> arrScore = new ArrayList<>();
     private ArrayList<listDataFormat> allList = new ArrayList<>();
+
     private myDBHelper myDBHelper = new myDBHelper(this);
+
     private EditText inputHole, inputPar, inputScore;
+
     private RecyclerView recyclerView;
     private ListView listView;
     private myAdapter3 adapter;
-    String holeNo;
-    int parNo, score;
+
     Button btnok;
     SQLiteDatabase myDB;
 
@@ -50,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         DBDisplay();
 
         btnok.setOnClickListener(v -> {
-            int i = 0;
+            String holeNo;
+            int parNo, score;
+            int i;
             holeNo = inputHole.getText().toString();
+            i = Integer.parseInt(holeNo) - 1;
             parNo = Integer.parseInt(inputPar.getText().toString());
             score = Integer.parseInt(inputScore.getText().toString());
 
@@ -86,17 +91,25 @@ public class MainActivity extends AppCompatActivity {
 
         //recyclerView.setLayoutManager(linearLayoutManager);
         //recyclerView.setAdapter(adapter);
+
+        /**   Initial arr to DB, DB read and DP, update arr to DB, DB read and DP and so son
+         *    need to be change algorithm again...
+         *    also find out Horizontal display for all data                                  */
         String hole;
         int par, score;
+        allList.clear();
         for (int i = 0; i < 18; i++) {
-            hole = String.valueOf(arrHole.get(i));
+            hole = arrHole.get(i);
             par = arrPar.get(i);
             score = arrScore.get(i);
             listDataFormat tempList = new listDataFormat(hole, par, score);
             allList.add(tempList);
         }
 
+        //adapter.notifyDataSetChanged();
+
         listView.setAdapter(adapter);
+
     }
 
     public void PutArrayToDB() {
@@ -125,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         //recyclerView = findViewById(R.id.recyclerView);
         listView = findViewById(R.id.listView);
         adapter = new myAdapter3(this, R.layout.layout_listview2, allList);
+
     }
 
     private Cursor getAllItems() {

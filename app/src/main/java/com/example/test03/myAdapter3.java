@@ -40,8 +40,8 @@ public class myAdapter3 extends ArrayAdapter<listDataFormat> {
         scoreView = view.findViewById(R.id.player_score);
 
         holeView.setText(mHole);
-        parView.setText(mPar);
-        scoreView.setText(mScore);
+        parView.setText(String.valueOf(mPar));
+        scoreView.setText(String.valueOf(mScore));
 
         return view;
     }
