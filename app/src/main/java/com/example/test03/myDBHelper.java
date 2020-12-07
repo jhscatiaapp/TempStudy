@@ -39,7 +39,7 @@ public class myDBHelper extends SQLiteOpenHelper {
     }
 
     public boolean saveToDB(String HOLE, int PAR, int SCORE) {
-//String DATE, String CC, String PLAYER_NAME,
+        //String DATE, String CC, String PLAYER_NAME,
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -99,6 +99,7 @@ public class myDBHelper extends SQLiteOpenHelper {
         String query = "DELETE FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(query);
-        db.close();
+        //db.close();
+        /**          after cancel close db it is working. i don't know y        */
     }
 }

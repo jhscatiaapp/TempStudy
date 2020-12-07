@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputHole, inputPar, inputScore;
 
     private RecyclerView recyclerView;
-    private ListView listView;
-    private myAdapter3 adapter;
+    //private ListView listView;
+    //private myAdapter3 adapter;
+    private myAdapter adapter;
+
 
     Button btnok;
     SQLiteDatabase myDB;
@@ -46,56 +49,48 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         VariablesSetter();
-        myDBHelper.deleteAllData();
         InitializeArrayList();
         PutArrayToDB();
         DBDisplay();
 
+        /**            Button Click and Implementation            */
         btnok.setOnClickListener(v -> {
             String holeNo;
             int parNo, score;
             int i;
+
             holeNo = inputHole.getText().toString();
             i = Integer.parseInt(holeNo) - 1;
             parNo = Integer.parseInt(inputPar.getText().toString());
             score = Integer.parseInt(inputScore.getText().toString());
 
             //arrHole.add(i, holeNo);
-            arrPar.add(i, parNo);
-            arrScore.add(i, score);
+            arrPar.set(i, parNo);
+            arrScore.set(i, score);
 
-            myDBHelper.deleteAllData();
-            PutArrayToDB();
+            //myDBHelper.deleteAllData();
+            //PutArrayToDB();
             DBDisplay();
         });
+        /**--------------------------------------------------------*/
 
 
+        /**           Once click score board and implement modify dialog
+         *            but is it not clickable. need to check and solve it           */
+        adapter.setOnItemClickListener(new myAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "Clicked position " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        /**---------------------------------------------------------------------*/
+
+
+        /**    implement OUT/IN and TTL score column to insert score board        */
 
     }
 
-    /*private void storeDBtoArrayList() {
-        arrHole.clear();
-        arrPar.clear();
-        arrScore.clear();
-
-        Cursor cursor = myDBHelper.readAllData();
-
-        while (cursor.moveToNext()) {
-            arrHole.add(cursor.getString(0));
-            arrPar.add(cursor.getInt(1));
-            arrScore.add(cursor.getInt(2));
-        }
-    }*/
-
     public void DBDisplay() {
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        //recyclerView.setLayoutManager(linearLayoutManager);
-        //recyclerView.setAdapter(adapter);
-
-        /**   Initial arr to DB, DB read and DP, update arr to DB, DB read and DP and so son
-         *    need to be change algorithm again...
-         *    also find out Horizontal display for all data                                  */
         String hole;
         int par, score;
         allList.clear();
@@ -107,14 +102,17 @@ public class MainActivity extends AppCompatActivity {
             allList.add(tempList);
         }
 
-        myDBHelper.deleteAllData();
-
         PutArrayToDB();
+
+        adapter = new myAdapter(this, getAllItems());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
     public void PutArrayToDB() {
+        myDBHelper.deleteAllData();
         for(int i = 0; i < 18; i++) {
             myDBHelper.saveToDB(String.valueOf(arrHole.get(i)), arrPar.get(i), arrScore.get(i));
         }
@@ -137,9 +135,16 @@ public class MainActivity extends AppCompatActivity {
         inputScore = findViewById(R.id.inputScore);
         btnok = findViewById(R.id.buttonOK);
         myDB = myDBHelper.getWritableDatabase();
-        //recyclerView = findViewById(R.id.recyclerView);
-        listView = findViewById(R.id.listView);
-        adapter = new myAdapter3(this, R.layout.layout_listview2, allList);
+        recyclerView = findViewById(R.id.recyclerView);
+        //listView = findViewById(R.id.listView);
+        adapter = new myAdapter(this, getAllItems());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //adapter = new myAdapter(this, getAllItems());
+        recyclerView.setAdapter(adapter);
 
     }
 
