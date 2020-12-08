@@ -172,7 +172,7 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="PAR   "
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -184,6 +184,43 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="Jeong Hyun Seung"
+                android:background="@drawable/majorbackground_table_border"
+                android:textColor="#002671"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/player2Name_score_board"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Jeong Hyun Seung"
+                android:background="@drawable/majorbackground_table_border"
+                android:textColor="#002671"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/player3Name_score_board"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Jeong Hyun Seung"
+                android:background="@drawable/majorbackground_table_border"
+                android:textColor="#002671"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/player4Name_score_board"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Jeong Hyun Seung"
+                android:background="@drawable/majorbackground_table_border"
                 android:textColor="#002671"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />

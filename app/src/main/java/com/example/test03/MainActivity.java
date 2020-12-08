@@ -35,10 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputHole, inputPar, inputScore;
 
     private RecyclerView recyclerView;
-    //private ListView listView;
-    //private myAdapter3 adapter;
     private myAdapter adapter;
-
 
     Button btnok;
     SQLiteDatabase myDB;
@@ -50,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         VariablesSetter();
         InitializeArrayList();
-        PutArrayToDB();
-        DBDisplay();
+        DBDisplay(arrHole, arrPar, arrScore);
 
         /**            Button Click and Implementation            */
         btnok.setOnClickListener(v -> {
@@ -64,13 +60,10 @@ public class MainActivity extends AppCompatActivity {
             parNo = Integer.parseInt(inputPar.getText().toString());
             score = Integer.parseInt(inputScore.getText().toString());
 
-            //arrHole.add(i, holeNo);
             arrPar.set(i, parNo);
             arrScore.set(i, score);
 
-            //myDBHelper.deleteAllData();
-            //PutArrayToDB();
-            DBDisplay();
+            DBDisplay(arrHole, arrPar, arrScore);
         });
         /**--------------------------------------------------------*/
 
@@ -90,19 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void DBDisplay() {
-        String hole;
-        int par, score;
-        allList.clear();
-        for (int i = 0; i < 18; i++) {
-            hole = arrHole.get(i);
-            par = arrPar.get(i);
-            score = arrScore.get(i);
-            listDataFormat tempList = new listDataFormat(hole, par, score);
-            allList.add(tempList);
-        }
+    public void DBDisplay(ArrayList<String> holearr, ArrayList<Integer> pararr, ArrayList<Integer> scorearr) {
 
-        PutArrayToDB();
+        PutArrayToDB(holearr, pararr, scorearr);
 
         adapter = new myAdapter(this, getAllItems());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -111,10 +94,32 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void PutArrayToDB() {
+    public void PutArrayToDB(ArrayList<String> holearr, ArrayList<Integer> pararr, ArrayList<Integer> scorearr) {
         myDBHelper.deleteAllData();
-        for(int i = 0; i < 18; i++) {
-            myDBHelper.saveToDB(String.valueOf(arrHole.get(i)), arrPar.get(i), arrScore.get(i));
+
+        int sumParOut = 0;
+        int sumScoreOut1 = 0;
+        for (int j = 0; j < 9; j++) {
+            sumParOut = pararr.get(j) + sumParOut;
+            sumScoreOut1 = scorearr.get(j) + sumScoreOut1;
+        }
+        pararr.set(9, sumParOut);
+        scorearr.set(9, sumScoreOut1);
+
+        int sumParIn = 0;
+        int sumScoreIn1 = 0;
+        for (int j = 10; j < 19; j++) {
+            sumParIn = pararr.get(j) + sumParIn;
+            sumScoreIn1 = scorearr.get(j) + sumScoreIn1;
+        }
+        pararr.set(19, sumParIn);
+        scorearr.set(19, sumScoreIn1);
+
+        pararr.set(20, sumParIn + sumParOut);
+        scorearr.set(20, sumScoreIn1 + sumScoreOut1);
+
+        for (int i = 0; i < holearr.size(); i++) {
+            myDBHelper.saveToDB(String.valueOf(holearr.get(i)), pararr.get(i), scorearr.get(i));
         }
     }
 
@@ -122,11 +127,24 @@ public class MainActivity extends AppCompatActivity {
         arrHole.clear();
         arrPar.clear();
         arrScore.clear();
-        for(int i = 0; i < 18; i++) {
-            arrHole.add(String.valueOf(i+1));
+        for (int i = 0; i < 20; i++) {
+            arrHole.add(String.valueOf(i + 1));
             arrPar.add(4);
             arrScore.add(0);
         }
+
+        arrHole.add(9, "OUT");
+        arrPar.add(9, 4);
+        arrScore.add(9, 0);
+
+        arrHole.set(19, "IN");
+        arrPar.set(19, 4);
+        arrScore.set(19, 0);
+
+        arrHole.set(20, "TTL");
+        arrPar.set(20, 4);
+        arrScore.set(20, 0);
+
     }
 
     public void VariablesSetter() {
@@ -136,14 +154,10 @@ public class MainActivity extends AppCompatActivity {
         btnok = findViewById(R.id.buttonOK);
         myDB = myDBHelper.getWritableDatabase();
         recyclerView = findViewById(R.id.recyclerView);
-        //listView = findViewById(R.id.listView);
         adapter = new myAdapter(this, getAllItems());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //adapter = new myAdapter(this, getAllItems());
         recyclerView.setAdapter(adapter);
 
     }

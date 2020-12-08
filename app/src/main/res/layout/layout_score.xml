@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/hole_no"
+            android:width="40dp"
+            android:background="@drawable/blue_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#1C1C1C"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/par_no"
+            android:width="40dp"
+            android:background="@drawable/green_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/player1_score"
+            android:width="40dp"
+            android:background="@drawable/majorbackground_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/player2_score"
+            android:width="40dp"
+            android:background="@drawable/majorbackground_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/player3_score"
+            android:width="40dp"
+            android:background="@drawable/majorbackground_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/player4_score"
+            android:width="40dp"
+            android:background="@drawable/majorbackground_table_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </TableLayout>
+
+</LinearLayout>

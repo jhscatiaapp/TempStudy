@@ -11,34 +11,22 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/hole_no"
-            android:width="25dp"
-            android:background="@drawable/blue_table_border"
+            android:id="@+id/hole_no_in"
+            android:width="40dp"
+            android:background="@drawable/in_out_ttl_border"
             android:clickable="true"
             android:gravity="center"
-            android:hint="0"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:textColor="#1C1C1C"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/par_no"
-            android:width="25dp"
-            android:background="@drawable/green_table_border"
-            android:clickable="true"
-            android:gravity="center"
-            android:hint="0"
+            android:text="IN"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold|italic" />
 
         <TextView
-            android:id="@+id/player_score"
-            android:width="25dp"
+            android:id="@+id/par_no_in"
+            android:width="40dp"
+            android:background="@drawable/in_out_ttl_border"
             android:clickable="true"
             android:gravity="center"
             android:hint="0"
@@ -46,7 +34,20 @@
             android:paddingBottom="3dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/player_score_in"
+            android:width="40dp"
+            android:background="@drawable/in_out_ttl_border"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="0"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
     </TableLayout>
 
 </LinearLayout>
