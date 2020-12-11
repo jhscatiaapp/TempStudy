@@ -53,7 +53,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         int intPar = mCursor.getInt(mCursor.getColumnIndex(COL_PAR));
         int intScore = mCursor.getInt(mCursor.getColumnIndex(COL_SCORE));
 
-        if (position == 9 || position == 19) {
+/*        if (position == 9 || position == 19 || position == 20) {
             holder.holeView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
             holder.holeView.setTextColor(Color.WHITE);
             holder.parView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
@@ -66,7 +66,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             holder.scoreView3.setTextColor(Color.BLACK);
             holder.scoreView4.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
             holder.scoreView4.setTextColor(Color.BLACK);
-        }
+        }*/
 
         holder.holeView.setText(strHole);
         holder.parView.setText(String.valueOf(intPar));
